@@ -8,14 +8,15 @@
 \usetheme{Boadilla}
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
 \hypersetup{pdfstartview={Fit}} % fits the presentation to the window when first displayed
+\graphicspath{{./figures/}{./figures/generated/}{./figures/static/}}
 
 %Edwards PB, Wanjura WJ, Brown WV: Selective herbivory by Christmas beetles in response to intraspecific variation in Eucalyptus terpenoids. Oecologia 1993, 95:551–557
 
 %Info
-\title[Detecting Somatic Mutations]{Detection of somatic mutations in \textit{Eucalyptus melliodora}}
+\title[Detecting Somatic Mutations]{Methods for Detecting Somatic Mutation in Plants}
 \titlegraphic{
-	\includegraphics[width=.3\linewidth]{figures/gatk_dendo.pdf}
-	\includegraphics[width=.3\textwidth, angle=90]{figures/labeled_tree.jpg}
+	\includegraphics[width=.3\linewidth]{gatk_tree_rightwards.pdf}
+	\includegraphics[width=.3\textwidth, angle=90]{labeled_tree.jpg}
 	}
 \date{3/15/17}
 \author{Adam Orr}
@@ -32,14 +33,14 @@
 \item Strong wood used for bridges
 \end{itemize}
 \column{.5\linewidth}
-\includegraphics[width=\linewidth]{figures/map.jpg}\footnotemark
+\includegraphics[width=\linewidth]{map.jpg}\footnotemark
 \end{columns}
 \footnotetext{\url{https://commons.wikimedia.org/wiki/File:E._melliodora.JPG}}
 \end{frame}
 
 \begin{frame}{A Genetic Mosaic}
 	\begin{center}
-	\includegraphics[width=.6\linewidth]{figures/unlabeled_tree.jpg}
+	\includegraphics[width=.6\linewidth]{unlabeled_tree.jpg}
 	\end{center}
 	\begin{itemize}
 		\item Edwards identified as mosaic in 1993\footnote{\textit{Edwards PB, Wanjura WJ, Brown WV. Oecologia 1993, 95:551–557.}}
@@ -59,7 +60,7 @@
 		\item Limited understanding of how plants grow
 	\end{itemize}
 	\begin{center}
-	\includegraphics[width=.6\linewidth]{figures/nectarine.jpg}
+	\includegraphics[width=.6\linewidth]{nectarine.jpg}
 	\footnote{\url{https://commons.wikimedia.org/wiki/File:White_nectarine_and_cross_section02_edit.jpg}}
 	\end{center}
 \end{frame}
@@ -69,7 +70,7 @@
 	\item How do somatic mutations spread? How can we study this?
 	\item Cancers and other somatic diseases.
 	\item A tree as a system for studying somatic mutation.
-	\item The tree has a built-in point of reference
+	\item The tree has a built-in control
 	\end{itemize}
 
 	% \begin{alertblock}{A phylogeny is a \textbf{hypothesis}!}
@@ -80,9 +81,14 @@
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{What mutation is causing the herbivore resistance phenotype?}
 \begin{center}
-What mutation is causing the herbivore resistance phenotype?
+	\begin{tikzpicture}
+		\node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\textwidth]{labeled_tree.jpg}};
+		\begin{scope}[x={(image.south east)},y={(image.north west)}]
+			\draw[red, line width=5mm, ->] (.35,.75) -- (.25,.5);
+		\end{scope}
+	\end{tikzpicture}
 \end{center}
 \end{frame}
 
@@ -91,15 +97,17 @@ What mutation is causing the herbivore resistance phenotype?
 
 %%We believe it to be the case that flowers & reproductive cells are forming as the branch forms, not transported through a stem-cell store.
 
-\begin{frame}{Somatic mutations are hard to find}
-Mutations are very rare, but sequencing errors are very common.
+\begin{frame}{Mutations are very rare, but sequencing errors are very common.}
+
+Somatic mutations are hard to find
+
 \begin{itemize}
 \item Errors accumulate during PCR prior to sequencing - then propagate
 \item Errors accumulate in amplification steps during sequencing
 \item Technical error from sequencer
 \end{itemize}
 
-\textbf{Sequencer error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
+\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
 
 \end{frame}
 
@@ -121,7 +129,7 @@ Mutations are very rare, but sequencing errors are very common.
 \begin{center}
 \begin{tikzpicture}[sqnode/.style={rectangle, draw=black!60, fill=black!5,very thick,minimum size=1cm}]
 	\node[sqnode] (sequencing) {Sequence};
-	\node[sqnode] (alignment) [below = of sequencing] {Alignment};
+	\node[sqnode] (alignment) [below = of sequencing] {Align};
 	\node[sqnode] (varcall) [below = of alignment] {Get Variants (GATK)};
 	\node[sqnode] (flt) [below = of varcall] {Filter};
 	\draw[ultra thick,->] (sequencing.south) -- (alignment.north);
@@ -137,15 +145,21 @@ Mutations are very rare, but sequencing errors are very common.
 \begin{frame}{Mutation Pattern Approximately Matches Tree Structure}
 \begin{columns}
 \column{.5\linewidth}
-	\includegraphics[width=\linewidth,angle=90]{figures/gatk_tree_rotated.pdf}
+	\begin{center}
+	Computed Tree
+	\end{center}
+	\includegraphics[width=\linewidth]{gatk_tree_rightwards.pdf}
 \column{.5\linewidth}
-	\includegraphics[width=\linewidth]{figures/labeled_tree.jpg}
+	\begin{center}
+	True Tree
+	\end{center}
+	\includegraphics[width=\linewidth,angle=90]{true_tree.pdf}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Most Reads Are Not Mapped to the \textit{E. grandis} Reference}
 \begin{center}
-\includegraphics[height=.9\textheight]{figures/bowtie1_hist.pdf}
+\includegraphics[height=.9\textheight]{bowtie1_hist.pdf}
 \end{center}
 \end{frame}
 
@@ -155,7 +169,7 @@ Mutations are very rare, but sequencing errors are very common.
 \begin{center}
 \begin{tikzpicture}[sqnode/.style={rectangle, draw=black!60, fill=black!5,very thick,minimum size=1cm}]
 	\node[sqnode] (sequencing) {Sequence};
-	\node[sqnode] (alignment) [below = of sequencing] {Alignment};
+	\node[sqnode] (alignment) [below = of sequencing] {Align};
 	\node[sqnode] (varcall) [below = of alignment] {Get Variants (GATK)};
 	\node[sqnode] (flt) [below = of varcall] {Filter};
 	\draw[ultra thick,->] (sequencing.south) -- (alignment.north);
@@ -165,10 +179,10 @@ Mutations are very rare, but sequencing errors are very common.
 \end{center}
 \column{.5\linewidth}
 \begin{center}
-\begin{tikzpicture}[sqnode/.style={rectangle, draw=black!60, fill=black!5,very thick,minimum size=1cm}, gnode/.style={rectangle, draw = black!20, thick, minimum size=1cm}]
+\begin{tikzpicture}[sqnode/.style={rectangle, draw=black!60, fill=black!5,very thick,minimum size=1cm}, gnode/.style={rectangle, text=black!20, draw = black!20, thick, minimum size=1cm}]
 	\node[sqnode] (sequencing) {Sequence};
-	\node[gnode] (alignment) [below = of sequencing] {Alignment};
-	\node[sqnode] (varcall) [below = of alignment] {Get Variants (GATK)};
+	\node[gnode] (alignment) [below = of sequencing] {Align};
+	\node[sqnode] (varcall) [below = of alignment] {Get Variants (DiscoSNP++)};
 	\node[sqnode] (flt) [below = of varcall] {Filter};
 	\draw[ultra thick,->] (sequencing.south) -- (varcall);
 	\draw[ultra thick,->] (varcall.south) -- (flt.north);
@@ -187,7 +201,7 @@ Mutations are very rare, but sequencing errors are very common.
 % 			\item Add adaptors and inserts to your DNA fragments
 % 			\end{itemize}
 % 		\column{.5\linewidth}
-% 			\includegraphics[width=\linewidth]{figures/illumina_library_prep.png}
+% 			\includegraphics[width=\linewidth]{illumina_library_prep.png}
 % 	\end{columns}
 % \end{frame}
 
@@ -205,7 +219,7 @@ Mutations are very rare, but sequencing errors are very common.
 % 			Illumina sequencing is a problem of optics. Advances in Illumina sequencing are all fundamentally advances in camera technology. 
 % 			\end{block}
 % 		\column{.5\linewidth}
-% 			\includegraphics[width=\linewidth]{figures/sequencing.png}
+% 			\includegraphics[width=\linewidth]{sequencing.png}
 % 	\end{columns}
 % \end{frame}
 
@@ -233,7 +247,7 @@ Mutations are very rare, but sequencing errors are very common.
 % 	\item Line up reads to a reference
 % 	\item Some software takes advantage of paired-end technology to improve alignment
 % 	\end{itemize}
-% 	\includegraphics[width=\linewidth]{figures/pe_sequencing.png}
+% 	\includegraphics[width=\linewidth]{pe_sequencing.png}
 % \end{frame}
 
 
@@ -252,7 +266,7 @@ Mutations are very rare, but sequencing errors are very common.
 % 			\item Could be complex algorithm, may be as simple as checking if the base agrees with the reference.
 % 			\end{itemize}
 % 		\column{.5\linewidth}
-% 			\includegraphics[width=\linewidth]{figures/coverage.png}
+% 			\includegraphics[width=\linewidth]{coverage.png}
 % 	\end{columns}
 % \end{frame}
 
@@ -367,9 +381,9 @@ There is a sample with a G to C mutation!
 \begin{frame}{The Reference-Free Method Performs Similarly}
 	\begin{columns}
 	\column{.5\linewidth}
-		\includegraphics[width=\linewidth]{figures/disco_tree2.pdf}
+		\includegraphics[width=\linewidth]{disco_tree_rightwards.pdf}
 	\column{.5\linewidth}
-		\includegraphics[width=\linewidth]{figures/labeled_tree.jpg}
+		\includegraphics[width=\linewidth,angle=90]{true_tree.pdf}
 	\end{columns}
 \end{frame}
 
@@ -380,9 +394,9 @@ There is a sample with a G to C mutation!
 % 	\end{itemize}
 % 	\begin{columns}
 % 	\column{.5\linewidth}
-% 		\includegraphics[width=\linewidth]{figures/gatk_tree2.pdf}
+% 		\includegraphics[width=\linewidth]{gatk_tree2.pdf}
 % 	\column{.5\linewidth}
-% 		\includegraphics[width=\linewidth]{figures/labeled_tree.jpg}
+% 		\includegraphics[width=\linewidth]{labeled_tree.jpg}
 % 	\end{columns}
 % \end{frame}
 
@@ -431,15 +445,23 @@ Use \textit{E. melliodora} genome as a starting place, then generate a new refer
 
 \begin{frame}{Our New Reference Improves Mapping Quality}
 \begin{center}
-\includegraphics[height=.9\textheight]{figures/both_hist.pdf}
+\includegraphics[width=.95\linewidth]{both_hist.pdf}
 \end{center}
 \end{frame}
 
+\begin{frame}{The Choice of Aligner Impacts Mapping Quality}
+\begin{center}
+\includegraphics[width=.95\linewidth]{aligner_comparison_hist.pdf}
+\end{center}
+\end{frame}
+
+
+
 \begin{frame}{Next Steps}
 \begin{itemize}
-\item Continue improving the reference we've created.
+\item Iterate to improve the reference we've created.
 \item Filter out repetitive elements that make mapping difficult
-\item Once we are confident in our data, make a prediction about the herbivore resistance
+\item Once we are confident in our results, make a prediction about the herbivore resistance
 \item Validate
 \end{itemize}
 \end{frame}
@@ -448,6 +470,7 @@ Use \textit{E. melliodora} genome as a starting place, then generate a new refer
 \begin{itemize}
 \item A reference-free method performs similarly to a standard pipeline
 \item Aligning to a reference, then using that alignment as a reference for another alignment can improve mapping qualities.
+\item The choice of aligner can be important, especially if you are mapping to a divergent reference
 \end{itemize}
 \end{frame}
 
@@ -455,16 +478,18 @@ Use \textit{E. melliodora} genome as a starting place, then generate a new refer
 \begin{itemize}
 \item Reed Cartwright
 \item Human and Comparative Genomics Laboratory
-\item Robert Lanfear, Macquarie University
+\item Robert Lanfear, Australian National University
 \end{itemize}
 
 \begin{columns}
 \column{.4\linewidth}
-	\includegraphics[width=.9\linewidth]{figures/lab_logo.pdf}
+	\includegraphics[width=.9\linewidth]{lab_logo.pdf}
 	\\~\\
-	\includegraphics[width=.9\linewidth]{figures/biodesign_logo.pdf}
+	\includegraphics[width=.9\linewidth]{biodesign_logo.pdf}
 \column{.4\linewidth}
-	\includegraphics[width=.9\linewidth]{figures/sols_logo.pdf}
+	\includegraphics[width=.9\linewidth]{sols_logo.pdf}
+	\\~\\
+	\includegraphics[width=.9\linewidth]{nih-nhgri-official-logo.jpg}
 \end{columns}
 
 \end{frame}
