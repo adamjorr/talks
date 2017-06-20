@@ -82,7 +82,7 @@ Somatic mutations are hard to find.
 \begin{center}
 \begin{tikzpicture}[sqnode/.style={rectangle, draw=black!60, fill=black!5,very thick,minimum size=1cm}]
 	\node[sqnode] (sequencing) {Sequence};
-	\node[sqnode] (alignment) [below = of sequencing] {Align (bwa)};
+	\node[sqnode] (alignment) [below = of sequencing] {Align (NextGenMap)};
 	\node[sqnode] (varcall) [below = of alignment] {Get Variants (GATK)};
 	\node[sqnode] (flt) [below = of varcall] {Filter};
 	\draw[ultra thick,->] (sequencing.south) -- (alignment.north);
@@ -160,16 +160,48 @@ Use \textit{E. melliodora} genome as a starting place, then generate a new refer
 \end{frame}
 
 \begin{frame}{Filtering Variants}
-
+Remove variants likely from alignment errors:
+\begin{itemize}
+	\item at sites with excessive depth ($>$500).
+	\item with excessive levels of heterozygosity.
+	\item within 50 bases of an indel.
+	\item in repeat regions 
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Next Steps}
+\begin{frame}{Removing Variants in Repeat Regions Improves Tree Topology}
+	\begin{columns}
+	\column{.5\linewidth}
+		\begin{center}
+		Predicted Variants
+		\end{center}
+		\includegraphics[width=\linewidth]{gatk_repeats_removed.pdf}
+	\column{.5\linewidth}
+		\begin{center}
+		True Tree
+		\end{center}
+		\includegraphics[width=\linewidth,angle=90]{true_tree.pdf}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Acknowledgements}
 \begin{itemize}
-\item Iterate to improve the reference we've created.
-\item Filter out repetitive elements that make mapping difficult
-\item Error correct reads
+\item Reed Cartwright
+\item Robert Lanfear, Australian National University
 \end{itemize}
+
+\begin{columns}
+\column{.4\linewidth}
+	\includegraphics[width=.9\linewidth]{lab_logo.pdf}
+	\\~\\
+	\includegraphics[width=.9\linewidth]{biodesign_logo.pdf}
+\column{.4\linewidth}
+	\includegraphics[width=.9\linewidth]{sols_logo.pdf}
+	\\~\\
+	This work is supported by grants NIH R01-HG007178 and NSF DBI-1356548.
+\end{columns}
+
 \end{frame}
 
 \end{document}

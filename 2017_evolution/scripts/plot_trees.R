@@ -69,10 +69,12 @@ tree$tip.label = unlist(lapply(tree$tip.label, FUN=function(x) strsplit(x,'_')[[
 tree$tip.label = gsub("M2c","M3a",tree$tip.label) #fix an oopsie
 m <- regexpr("[0-9]+",tree$tip.label)
 tree$tip.label = regmatches(tree$tip.label,m)
-# tree$edge.length<-NULL
-tree<-root(tree,c('1','2','3','4'),resolve.root=TRUE)
-pdf('figures/generated/gatk_repeats_removed.pdf')
-plot(tree,type="cladogram",direction="upwards",cex=4,edge.width=5,srt=-90,adj=.5,label.offset=.2)
+tree <- di2multi(tree,.001)
+tree$edge.length<-NULL
+tree<-root(tree,c('1','2','3','4','5','8'),resolve.root=TRUE)
+tree<-rotateConstr(tree,c('4','3','1','2','5','8','7','6'))
+pdf('figures/generated/gatk_repeats_removed.pdf',8,8)
+plot(tree,type="cladogram",direction="rightwards", no.margin=TRUE, cex=4,edge.width=5,srt=-90,adj=.5,label.offset=.2)
 dev.off()
 
 # gtree$edge.length<-NULL
