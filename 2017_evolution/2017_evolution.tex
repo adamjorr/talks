@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{tabu}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 %\usetikzlibrary{arrows}
@@ -25,19 +26,57 @@
 \begin{document}
 \frame{\titlepage}
 
+\begin{frame}{Why look for somatic mutations?}
+	\begin{tabu} to .95\textwidth { X[c] | X[c] }
+	% row 1 col 1
+	\textbf{Disease} & \textbf{Development}
+	\\
+	Cancer \& Somatic mutation rate & Understanding relationship between tissues
+	\\
+	\\
+	\hline
+	\\
+	\textbf{Agriculture} & \textbf{Testing Methods}
+	% row 2 col 1
+	\\
+	Looking for interesting phenotypes in clonally reproducing species & Using a known pattern of relationships to evaluate method performance
+	\end{tabu}
+\end{frame}
+
 \begin{frame}{Mutations in Plants}
-	Mutations create diversity which is necessary for evolution to occur.
 
 	Little is known about the process in plants.
 
-	Plant genomes are difficult to work with due to highly repetitive genomes.
+	\vfill
 
-	\begin{itemize}
-		\item Do plants have a segregated germline?
-		\item Do plants induce mutation in response to stress?
-	\end{itemize}
+	Genome-level approach required to find enough mutations, but plant genomes are difficult to work with due to highly repetitive genomes.
 
-	To answer these questions, we must first have methods to sensitively detect mutations.
+	\vfill
+
+	Relatively few plant genomes.
+
+	% \begin{itemize}
+	% 	\item Do plants have a segregated germline?
+	% 	\item Do plants induce mutation in response to stress?
+	% \end{itemize}
+
+	% To answer these questions, we must first have methods to sensitively detect mutations.
+
+\end{frame}
+
+\begin{frame}{Mutations are very rare, but sequencing errors are very common.}
+
+\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
+
+\vfill
+
+Somatic mutations are hard to find.
+
+\begin{itemize}
+\item Errors accumulate during PCR prior to sequencing - then propagate
+\item Errors accumulate in amplification steps during sequencing
+\item Technical error from sequencer
+\end{itemize}
 
 \end{frame}
 
@@ -51,20 +90,6 @@
 		\item Differential oil production gives protection from Christmas beetles
 		% \item Is this mutation a controlled process?
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Mutations are very rare, but sequencing errors are very common.}
-
-Somatic mutations are hard to find.
-
-\begin{itemize}
-\item Errors accumulate during PCR prior to sequencing - then propagate
-\item Errors accumulate in amplification steps during sequencing
-\item Technical error from sequencer
-\end{itemize}
-
-\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
-
 \end{frame}
 
 \begin{frame}{Study Methodology}
