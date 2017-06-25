@@ -2,6 +2,7 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{tabu}
+\usepackage{fontawesome}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 %\usetikzlibrary{arrows}
@@ -15,13 +16,13 @@
 %Edwards PB, Wanjura WJ, Brown WV: Selective herbivory by Christmas beetles in response to intraspecific variation in Eucalyptus terpenoids. Oecologia 1993, 95:551–557
 
 %Info
-\title[Eucalyptus Mutation Topology]{Patterns of mutation match physical branching topology in Eucalyptus}
+\title[Eucalyptus Mutation Topology]{Patterns of mutation match physical branching topology in \textit{Eucalyptus}}
 \titlegraphic{
 	\includegraphics[width=.3\linewidth]{gatk_tree_rightwards.pdf}
 	\includegraphics[width=.3\textwidth, angle=90]{labeled_tree.jpg}
 	}
 \date{6/27/17}
-\author{Adam Orr, @adamjorr}
+\author{Adam Orr\hskip 1em \faicon{twitter}@AdamJOrr}
 
 \begin{document}
 \frame{\titlepage}
@@ -66,11 +67,11 @@
 
 \begin{frame}{Mutations are very rare, but sequencing errors are very common.}
 
-\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
+Somatic mutations are hard to find.
 
 \vfill
 
-Somatic mutations are hard to find.
+\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
 
 \begin{itemize}
 \item Errors accumulate during PCR prior to sequencing - then propagate
@@ -212,9 +213,15 @@ Remove variants likely from alignment errors:
 
 \begin{frame}{Acknowledgements}
 \begin{itemize}
-\item Advisor: Reed Cartwright
-\item Robert Lanfear, Australian National University
+\item Advisor: Reed Cartwright\hskip 1em \faicon{twitter}@MinionLab
+\item Robert Lanfear, Australian National University\hskip 1em \faicon{twitter}@RobLanfear
 \end{itemize}
+
+Pipeline: \faicon{github} \url{https://github.com/adamjorr/somatic-variation}
+
+Talk: \faicon{github} \url{https://github.com/adamjorr/talks}
+
+\vfill
 
 \begin{columns}
 \column{.4\linewidth}
