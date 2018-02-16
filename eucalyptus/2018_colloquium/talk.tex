@@ -53,6 +53,8 @@
 			\item DNA Polymerase $\beta$
 			\item Mutation rate $\sim10^{-9}$
 		\end{itemize}
+		\vskip 3in
+		\footnotetext{PDB: 7ICG}
 \end{columns}
 \end{frame}
 
@@ -65,6 +67,7 @@
 			\item The genetic structure of the plant \textit{should} mirror its physical structure.
 		\end{itemize}
 \end{columns}
+\footnotetext{Heidstra \& Sabatini (2014) Plant and animal stem cells: similar yet different. doi:10.1038/nrm3790}
 \end{frame}
 
 \begin{frame}{Do Plants Evolve Differently?}
@@ -111,14 +114,18 @@
 \begin{frame}{Why are somatic mutations difficult to detect?}
 
 \begin{block}{Mutations are very rare, but sequencing errors are very common.}
-\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-10}$}
+\textbf{Sequencing error} alone is \textbf{$\sim10^{-2}$} while mutation rate after error-checking is \textbf{$\sim10^{-9}$}
 \end{block}
 
 \begin{itemize}
-\item Errors accumulate during PCR prior to sequencing - then propagate
-\item Errors accumulate in amplification steps during sequencing
+\item Errors accumulate during PCR prior to sequencing - then propagate.
+\item \textit{Taq} $\sim10^{-4}$
 \item Technical error from sequencer
 \end{itemize}
+
+\includegraphics[trim={1cm 4cm 0 0},clip,width=\linewidth]{pcr_errors.png}
+
+\footnotetext{\tiny{Potapov V, Ong JL (2017) Examining Sources of Error in PCR by Single-Molecule Sequencing}}
 
 \end{frame}
 
@@ -146,16 +153,16 @@
 \item Looking for interesting phenotypes in clonally reproducing species
 \end{itemize}
 
-\column{.5\linewidth}
-
 \textbf{Evolution}
 \begin{itemize}
 \item Determining the relationship between somatic and germline mutation rate
-\item Evolution of mutator phenotypes
-\item Mutational stress response
 \end{itemize}
 
+\column{.5\linewidth}
+\includegraphics[width=\linewidth]{nectarine.jpg}
+
 \end{columns}
+\footnotetext{\tiny{\url{https://commons.wikimedia.org/wiki/File:White_nectarine_and_cross_section02_edit.jpg}}}
 \end{frame}
 
 \begin{frame}{Project Goals}
@@ -206,6 +213,22 @@ Is there evidence of hypermutation? What about a segregated germline?
 	\draw[ultra thick,->] (varcall.south) -- (flt.north);
 \end{tikzpicture}
 \end{center}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Study Methodology}
+\begin{columns}
+
+\column{.5\linewidth}
+\begin{itemize}
+\item Sequence 8 samples in triplicate
+\item $\sim$10X coverage for each replicate
+\item Align sequence to genome of \textit{Eucalyptus grandis}
+\item Use replicates to remove false positives
+\end{itemize}
+
+\column{.5\linewidth}
+\includegraphics[width=\linewidth]{coverage.png}
 \end{columns}
 \end{frame}
 
@@ -276,6 +299,8 @@ Use \textit{E. melliodora} genome as a starting place, then generate a new refer
 \end{frame}
 
 \begin{frame}{Filtering Variants}
+\begin{columns}
+\column{.5\linewidth}
 Remove variants likely from alignment errors:
 \begin{itemize}
 	\item at sites with excessive depth ($>$500).
@@ -283,6 +308,9 @@ Remove variants likely from alignment errors:
 	\item within 50 bases of an indel.
 	\item in repeat regions 
 \end{itemize}
+\column{.5\linewidth}
+\includegraphics[width=\linewidth]{coverage.png}
+\end{columns}
 \end{frame}
 
 
@@ -300,6 +328,23 @@ Remove variants likely from alignment errors:
 		\includegraphics[width=\linewidth,angle=90]{true_tree.pdf}
 	\end{columns}
 \end{frame}
+
+\begin{frame}{Mutation Rates}
+\begin{columns}
+\column{.5\linewidth}
+\begin{itemize}
+\item Detected $\sim143$ mutations.
+\item Estimated true-positive rate of $\sim22\%$.
+\item $143\times\frac{1}{.22}=640$ mutations.
+\item $\sim7.1$ mutations per meter
+\item Somatic mutations account for $116$ mutations in gametes.
+\item $2.34\times10^{-7}$ mutations per generation per site
+\end{itemize}
+\column{.5\linewidth}
+\includegraphics[width=\linewidth]{labeled_nodes_tree.jpg}
+\end{columns}
+\end{frame}
+
 
 \begin{frame}{Acknowledgements}
 \begin{itemize}
