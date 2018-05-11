@@ -4,5 +4,6 @@
 *.out
 *.snm
 *.toc
-*.pdf
+*.fdb_latexmk
+*.fls
 figures/generated/*
