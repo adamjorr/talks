@@ -329,16 +329,41 @@ Remove variants likely from alignment errors:
 	\end{columns}
 \end{frame}
 
+\begin{frame}{Using Tree Topology Gives Higher Recall Rate}
+	\begin{itemize}
+	\item \textit{DeNovoGear} is a variant-calling method that uses information in the tree topology to call variants.
+	\item By simulation, we introduced 14000 mutations on the tree
+	\end{itemize}
+	\begin{center}
+	\begin{tabular}{ c | c }
+	\textit{GATK} & \textit{DeNovoGear} \\
+	\hline
+	3859 mutations & 4193 mutations \\
+	27\% & 30\%
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Randomizing Trees to Estimate False Positive Rate}
+	\begin{itemize}
+		\item Does using a phylogeny increase our false positive rate?
+		\item Simulate 100 trees maximally distant from the true tree.
+		\item Does our pipeline detect variation where there shouldn't be any?
+		\item \textbf{All} sites detected were variable sites.
+	\end{itemize}
+\end{frame}
+
 \begin{frame}{Mutation Rates}
 \begin{columns}
 \column{.5\linewidth}
 \begin{itemize}
-\item Detected $\sim143$ mutations.
-\item Estimated true-positive rate of $\sim22\%$.
-\item $143\times\frac{1}{.22}=640$ mutations.
-\item $\sim7.1$ mutations per meter
-\item Somatic mutations account for $116$ mutations in gametes.
-\item $2.34\times10^{-7}$ mutations per site per generation
+\item Detected $\sim91$ mutations.
+\item $20$ mutations in genes.
+\item Estimated recall of $\sim30\%$.
+\item $91\times\frac{1}{.3}=303$ mutations.
+\item $6\times10^{-7}$ mutations per site per tree
+\item $\sim4$ mutations per meter of length
+\item Somatic mutations account for $\sim65$ mutations per leaf tip.
 \end{itemize}
 \column{.5\linewidth}
 \includegraphics[width=\linewidth]{labeled_nodes_tree.jpg}
