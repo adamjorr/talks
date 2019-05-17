@@ -3,6 +3,7 @@
 \usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{tabu}
+\usepackage{booktabs}
 \usepackage{fontawesome}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
@@ -13,6 +14,8 @@
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
 \hypersetup{pdfstartview={Fit}} % fits the presentation to the window when first displayed
 \graphicspath{{./figures/}{./figures/generated/}{./figures/static/}}
+\definecolor{gold}{rgb}{1,.776,.153}
+\definecolor{maroon}{rgb}{.549,.114,.251}
 
 %Edwards PB, Wanjura WJ, Brown WV: Selective herbivory by Christmas beetles in response to intraspecific variation in Eucalyptus terpenoids. Oecologia 1993, 95:551–557
 
@@ -323,6 +326,23 @@ This per-generation rate is $\sim10\times$ larger than \textit{Arabidopsis}, but
 		\end{displaymath}
 	\end{itemize}
 	\column{.5\linewidth}
+	\begin{tabular}{l r} \toprule
+	\bfseries Quality Score & \bfseries $P(error)$ \\
+	\hline
+	1 & 0.8 \\
+	2 & 0.6 \\
+	3 & 0.5 \\
+	4 & 0.4 \\
+	5 & 0.3 \\
+	6 & 0.3 \\
+	7 & 0.2 \\
+	8 & 0.2 \\
+	9 & 0.1 \\
+	\bfseries 10 & \bfseries  0.1 \\
+	\bfseries 20 & \bfseries 0.01 \\
+	\bfseries 30 & \bfseries 0.001 \\
+	\bfseries 40 & \bfseries 0.0001 \\
+	\end{tabular}
 \end{columns}
 
 \end{frame}
@@ -338,8 +358,8 @@ This per-generation rate is $\sim10\times$ larger than \textit{Arabidopsis}, but
 \end{itemize}
 \column{.5\linewidth}
 \begin{tikzpicture}
-\begin{axis}[xlabel={Predicted Probability}, ylabel={Measured Frequency}]
-\addplot[black,samples = 50,domain=0:1]{x}
+\begin{axis}[width = .9\textwidth, xlabel={Predicted Probability}, ylabel={Measured Frequency}]
+\addplot[black,samples = 50,domain=0:1]{x};
 \end{axis}
 \end{tikzpicture}
 \end{columns}
@@ -360,14 +380,15 @@ then assumes mismatches at nonvariable sites are errors.
 \end{frame}
 
 \begin{frame}{BQSR uses a linear model to determine how much to adjust each quality score}
-\begin{tikzpicture}[align=center, sqnode/.style={rectangle,draw=black!60,fill=black!5,very thick,minimum size=1cm}, node distance = 4 cm]
-	\node[sqnode,align=center,above,minimum size=16cm](rg) at (8,0){};
+\centering
+\begin{tikzpicture}[align=center, sqnode/.style={rectangle,draw=black!60,fill=black!5,very thick,minimum size=1cm}, node distance = 1 cm]
+	\node[sqnode,align=center,above,minimum size=5cm](rg) at (2,0){};
 	% \draw[help lines] (0,0) grid (16,16);
-	\node[](rglab) at (8,15){Read Group};
-	\node[sqnode, align=center,above,minimum size=13cm,fill=gold!10](q) at (8,1){};
-	\node[](qlab) at (8,12){Assigned Quality Score};
-	\node[sqnode, minimum size = 5 cm,fill=maroon!10] at (5,6) {Cycle};
-	\node[sqnode, minimum size = 5 cm,fill=maroon!10] at (11,6) {Context};
+	\node[](rglab) at (2,4.5){Read Group};
+	\node[sqnode, align=center,above,minimum size=4cm,fill=gold!10](q) at (2,.25){};
+	\node[](qlab) at (2,3){Assigned Quality Score};
+	\node[sqnode, minimum size = 1.25 cm,fill=maroon!10] at (1.25,1.5) {Cycle};
+	\node[sqnode, minimum size = 1.25 cm,fill=maroon!10] at (2.75,1.5) {Context};
 \end{tikzpicture}
 \end{frame}
 
@@ -392,7 +413,7 @@ then assumes mismatches at nonvariable sites are errors.
 \item Method implemented in \texttt{kbbq} software
 \end{itemize}
 \column{.5\linewidth}
-\includegraphics[linewidth=.95\linewidth]{all_calibration.pdf}
+\includegraphics[width=.95\linewidth]{all_calibration.pdf}
 \end{columns}
 \end{frame}
 
