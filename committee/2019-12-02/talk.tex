@@ -31,6 +31,14 @@
 \begin{document}
 \frame{\titlepage}
 
+\begin{frame}{Chapter 2 - Detecting Somatic Mutations in a Non-model Organism}
+\begin{itemize}
+\item Somatic mutations are difficult to detect
+\item Finding mutations in non-model organisms is also difficult
+\item What are the biggest challenges for sensitively detecting mutations in non-model organisms and how can we overcome them?
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Why are somatic mutations difficult to detect?}
 
 \begin{block}{Mutations are very rare, but sequencing errors are very common.}
@@ -250,37 +258,37 @@ This per-generation rate is $\sim10\times$ larger than \textit{Arabidopsis}, but
 
 Errors make variant calling difficult - but we can predict them.
 
-\begin{columns}
-	\column{.5\linewidth}
-	\begin{itemize}
-		\item FASTQ format data has a quality score
-		\item Quality scores represent $P(error)$ on a phred scale.
-		\begin{displaymath}
-		P(error) = 10^{\frac{-Q}{10}}
-		\end{displaymath}
-		\begin{displaymath}
-		Q = -10\log_{10}{P(error)}
-		\end{displaymath}
-	\end{itemize}
-	\column{.5\linewidth}
-	\begin{tabular}{l r} \toprule
-	\bfseries Quality Score & \bfseries $P(error)$ \\
-	\hline
-	1 & 0.8 \\
-	2 & 0.6 \\
-	3 & 0.5 \\
-	4 & 0.4 \\
-	5 & 0.3 \\
-	6 & 0.3 \\
-	7 & 0.2 \\
-	8 & 0.2 \\
-	9 & 0.1 \\
-	\bfseries 10 & \bfseries  0.1 \\
-	\bfseries 20 & \bfseries 0.01 \\
-	\bfseries 30 & \bfseries 0.001 \\
-	\bfseries 40 & \bfseries 0.0001 \\
-	\end{tabular}
-\end{columns}
+% \begin{columns}
+	% \column{.5\linewidth}
+\begin{itemize}
+	\item FASTQ format data has a quality score
+	\item Quality scores represent $P(error)$ on a phred scale.
+	\begin{displaymath}
+	P(error) = 10^{\frac{-Q}{10}}
+	\end{displaymath}
+	\begin{displaymath}
+	Q = -10\log_{10}{P(error)}
+	\end{displaymath}
+\end{itemize}
+	% \column{.5\linewidth}
+	% \begin{tabular}{l r} \toprule
+	% \bfseries Quality Score & \bfseries $P(error)$ \\
+	% \hline
+	% 1 & 0.8 \\
+	% 2 & 0.6 \\
+	% 3 & 0.5 \\
+	% 4 & 0.4 \\
+	% 5 & 0.3 \\
+	% 6 & 0.3 \\
+	% 7 & 0.2 \\
+	% 8 & 0.2 \\
+	% 9 & 0.1 \\
+	% \bfseries 10 & \bfseries  0.1 \\
+	% \bfseries 20 & \bfseries 0.01 \\
+	% \bfseries 30 & \bfseries 0.001 \\
+	% \bfseries 40 & \bfseries 0.0001 \\
+	% \end{tabular}
+% \end{columns}
 
 \end{frame}
 
@@ -312,11 +320,11 @@ Errors make variant calling difficult - but we can predict them.
 then assumes mismatches at nonvariable sites are errors.
 \end{itemize}
 \column{.5\linewidth}
-\includegraphics[width=.95\linewidth]{raw_gatk.pdf}
+\includegraphics[width=.95\linewidth]{gatk_comparison.pdf}
 \end{columns}
 \end{frame}
 
-\begin{frame}{BQSR uses a linear model to determine how much to adjust each quality score}
+\begin{frame}{GATK BQSR uses a linear model to determine how much to adjust each quality score}
 \centering
 \begin{tikzpicture}[align=center, sqnode/.style={rectangle,draw=black!60,fill=black!5,very thick,minimum size=1cm}, node distance = 1 cm]
 	\node[sqnode,align=center,above,minimum size=5cm](rg) at (2,0){};
@@ -349,24 +357,24 @@ then assumes mismatches at nonvariable sites are errors.
 \begin{itemize}
 	\item Lacer uses singular value decomposition
 	\item ReQON limits the number of errors there can be at a site
-	\item Syntheic spike-ins
+	\item Synthetic spike-ins
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Error correctors can find some errors without a reference}
-\begin{columns}
-\column{.5\linewidth}
+% \begin{columns}
+% \column{.5\linewidth}
 \begin{itemize}
 \item Error correction methods exist that use k-mers to identify errors rather than an alignment and reference.
-\item Most error correctors don't update quality scores.
+\item Most error correctors don't update quality scores; \texttt{Lighter} optionally updates quality scores of corrections to a set maximum value but this doesn't materially affect the calibration.
 \end{itemize}
 
-\column{.5\linewidth}
-\includegraphics[width=.95\linewidth]{raw_lighter.pdf}
-\end{columns}
+% \column{.5\linewidth}
+% \includegraphics[width=.95\linewidth]{raw_lighter.pdf}
+% \end{columns}
 \end{frame}
 
-\begin{frame}{K-mer-Based Base Quality score recalibration}
+\begin{frame}{K-mer Based Base Quality score recalibration}
 \begin{columns}
 \column{.5\linewidth}
 \begin{itemize}
@@ -379,10 +387,15 @@ then assumes mismatches at nonvariable sites are errors.
 \end{frame}
 
 \begin{frame}{Future Plans}
+
+Calculate Brier scores for each calibration to have a quantitative comparison.
+
+\vskip 1em
+
 Evaluate downstream impact on quality of variant calls
 \begin{itemize}
-\item F-score of returned calls
-\item Statistics of GATK and other callers influenced by quality scores.
+\item F-score of returned calls and AUC of variant quality
+\item How are reported annotations influenced by quality scores?
 \item Run \texttt{kbbq} on the Eucalyptus data and find how that changes the distribution of quality scores and the number of detected variants.
 \end{itemize}
 \end{frame}
@@ -395,12 +408,22 @@ Evaluate downstream impact on quality of variant calls
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Methods}
+\begin{frame}{How well-calibrated are long reads?}
+\begin{itemize}
 \item Check data for calibration; if it's not well calibrated, try using GATK/\texttt{kbbq} and see if it works.
+\item For PacBio data can we use features of the subreads to make more accurate inferences?
+\item What is the best way to represent the read length covariate? Does it still matter?
 \item Nanopore uses 5 or 6bp basecalling models, so the context covariate in this case should be that long.
+\item Methylation?
 \item Does logistic regression make more sense for this data?
+\end{itemize}
 \end{frame}
 
+\begin{frame}{How does calibration improve variant calls in long reads?}
+\begin{itemize}
+\item The biggest reason to use BQSR is to accurately classify bases as errors. If there is any reason to use it at all, it should be evident in noisy long read data!
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Acknowledgements}
 \begin{itemize}
